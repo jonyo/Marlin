@@ -2,7 +2,7 @@
 #define CONFIGURATION_H
 
 //#define DUO
-#define DVR8825
+#define DRV8825
 //#define DIRECT_DRIVE_EXTRUDER
 //#define SERIAL_COMPATIBILITY // Needed for some linux distros. Switches baudrate to 115200 for to maximise compatibility at the cost of some serial speed.
 
