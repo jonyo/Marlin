@@ -136,6 +136,7 @@
 // PID settings:
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
+#define BANG_MAX 256
 #define PID_MAX 256 // limits current to nozzle; 256=full current
 #ifdef PIDTEMP
   //#define PID_DEBUG // Sends debug data to the serial port. 
