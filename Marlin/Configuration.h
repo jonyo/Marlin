@@ -42,6 +42,7 @@
 // 6  = Sanguinololu < 1.2
 // 62 = Sanguinololu 1.2 and above
 // 63 = Melzi
+// 64 = STB V1.1
 // 7  = Ultimaker
 // 71 = Ultimaker (Older electronics. Pre 1.5.4. This is rare)
 // 8  = Teensylu
@@ -136,8 +137,13 @@
 // PID settings:
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
+<<<<<<< HEAD
 #define BANG_MAX 256
 #define PID_MAX 256 // limits current to nozzle; 256=full current
+=======
+#define BANG_MAX 256 // limits current to nozzle while in bang-bang mode; 256=full current
+#define PID_MAX 256 // limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 256=full current
+>>>>>>> bang-mode
 #ifdef PIDTEMP
   //#define PID_DEBUG // Sends debug data to the serial port. 
   //#define PID_OPENLOOP 1 // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
@@ -353,7 +359,12 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 
 //LCD and SD support
 //#define ULTRA_LCD  //general lcd support, also 16x2
+<<<<<<< HEAD
 #define SDSUPPORT // Enable SD Card Support in Hardware Console
+=======
+//#define DOGLCD	// Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
+//#define SDSUPPORT // Enable SD Card Support in Hardware Console
+>>>>>>> bang-mode
 
 //#define ULTIMAKERCONTROLLER //as available from the ultimaker online store.
 //#define ULTIPANEL  //the ultipanel as on thingiverse
@@ -386,13 +397,22 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 //  #define NEWPANEL  //enable this if you have a click-encoder panel
   #define SDSUPPORT
   #define ULTRA_LCD
-  #define LCD_WIDTH 20
-  #define LCD_HEIGHT 4
-  
+	#ifdef DOGLCD	// Change number of lines to match the DOG graphic display
+		#define LCD_WIDTH 20
+		#define LCD_HEIGHT 5
+	#else
+		#define LCD_WIDTH 20
+		#define LCD_HEIGHT 4
+	#endif
 #else //no panel but just lcd 
   #ifdef ULTRA_LCD
-    #define LCD_WIDTH 16
-    #define LCD_HEIGHT 2    
+	#ifdef DOGLCD	// Change number of lines to match the 128x64 graphics display
+		#define LCD_WIDTH 20
+		#define LCD_HEIGHT 5
+	#else
+		#define LCD_WIDTH 16
+		#define LCD_HEIGHT 2
+	#endif    
   #endif
 #endif
 
