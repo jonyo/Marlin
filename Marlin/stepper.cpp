@@ -62,7 +62,6 @@ static long acceleration_time, deceleration_time;
 static unsigned short acc_step_rate; // needed for deccelaration start point
 static char step_loops;
 static unsigned short OCR1A_nominal;
-static unsigned short step_loops_nominal;
 
 volatile long endstops_trigsteps[3]={0,0,0};
 volatile long endstops_stepsTotal,endstops_stepsDone;
@@ -289,8 +288,6 @@ FORCE_INLINE void trapezoid_generator_reset() {
   deceleration_time = 0;
   // step_rate to timer interval
   OCR1A_nominal = calc_timer(current_block->nominal_rate);
-  // make a note of the number of step loops required at nominal speed
-  step_loops_nominal = step_loops;
   acc_step_rate = current_block->initial_rate;
   acceleration_time = calc_timer(acc_step_rate);
   OCR1A = acceleration_time;
@@ -668,8 +665,6 @@ ISR(TIMER1_COMPA_vect)
     }
     else {
       OCR1A = OCR1A_nominal;
-      // ensure we're running at the correct step rate, even if we just came off an acceleration
-      step_loops = step_loops_nominal;
     }
 
     // If current block is finished, reset pointer 
