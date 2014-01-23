@@ -735,9 +735,9 @@
      #define LCD_PINS_D7        27
      
      //The encoder and click button
-     #define BTN_EN1 11  //must be a hardware interrupt pin
+     #define BTN_EN1 28  //must be a hardware interrupt pin
      #define BTN_EN2 10 //must be hardware interrupt pin
-     #define BTN_ENC 16  //the switch
+     #define BTN_ENC -1  //the switch
      //not connected to a pin
      #define SDCARDDETECT -1
      

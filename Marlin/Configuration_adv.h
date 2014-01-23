@@ -76,10 +76,10 @@
 //===========================================================================
 
 // This defines the number of extruders
-#ifdef DUO
-  #define EXTRUDERS 2
-#else
+#if MOTHERBOARD == 62
   #define EXTRUDERS 1
+#else
+  #define EXTRUDERS 2
 #endif
 
 #define ENDSTOPS_ONLY_FOR_HOMING // If defined the endstops will only be used for homing

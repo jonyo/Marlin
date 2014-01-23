@@ -1,7 +1,7 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-//#define DUO
+#define SPITFIRE
 #define DRV8825
 //#define DIRECT_DRIVE_EXTRUDER
 //#define SERIAL_COMPATIBILITY // Needed for some linux distros. Switches baudrate to 115200 for to maximise compatibility at the cost of some serial speed.
@@ -13,7 +13,7 @@
 //User specified version info of THIS file to display in [Pronterface, etc] terminal window during startup.
 //Implementation of an idea by Prof Braino to inform user that any changes made
 //to this build by the user have been successfully uploaded into firmware.
-#define STRING_VERSION_CONFIG_H "2013-03-08" // build date and time
+#define STRING_VERSION_CONFIG_H "2013-11-27" // build date and time
 #define STRING_CONFIG_H_AUTHOR "Deezmaker" //Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
@@ -54,17 +54,13 @@
 // 301 = Rambo
 
 #ifndef MOTHERBOARD
-  #ifdef DUO
-    #define MOTHERBOARD 34
+  #ifdef __AVR_ATmega1284P__
+    #define MOTHERBOARD 62
   #else
-    #ifdef __AVR_ATmega1284P__
-      #define MOTHERBOARD 62
+    #ifdef __AVR_ATmega2560__
+      #define MOTHERBOARD 34
     #else
-      #ifdef __AVR_ATmega2560__
-        #define MOTHERBOARD 34
-      #else
-        #error Oops!  Make sure you have 'Sanguino W/ ATmega1284p 16mhz' for an X1 or 'Arduino Mega 2560' for an X3 selected from the 'Tools -> Boards' menu.
-      #endif
+      #error Oops!  Make sure you have 'Sanguino W/ ATmega1284p 16mhz' for an X1 or 'Arduino Mega 2560' for an X3 selected from the 'Tools -> Boards' menu.
     #endif
   #endif
 #endif
@@ -141,17 +137,24 @@
 #ifdef PIDTEMP
   //#define PID_DEBUG // Sends debug data to the serial port. 
   //#define PID_OPENLOOP 1 // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
-  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 30 // If the temperature difference between the target temperature and the actual temperature
                                   // is more then PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
   #define PID_INTEGRAL_DRIVE_MAX 255  //limit for the integral term
   #define K1 0.95 //smoothing factor withing the PID
   #define PID_dT ((16.0 * 8.0)/(F_CPU / 64.0 / 256.0)) //sampling period of the temperature routine
 
 // If you are using a preconfigured hotend then you can use one of the value sets by uncommenting it
-// Bukobot
+#ifdef SPITFIRE
+// Spitfire
+    #define  DEFAULT_Kp 8.29
+    #define  DEFAULT_Ki 0.37
+    #define  DEFAULT_Kd 45.91
+#else
+// Bukoschnozzle
     #define  DEFAULT_Kp 87.89
     #define  DEFAULT_Ki 3.88
     #define  DEFAULT_Kd 664.28
+#endif
 
 // Ultimaker
 //    #define  DEFAULT_Kp 22.2
